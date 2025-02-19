@@ -1,0 +1,45 @@
+1. Ensure Hadoop is Running
+Make sure your Hadoop services are up and running:
+
+sh
+Copy
+Edit
+hdfs dfsadmin -report
+yarn node -list
+2. Upload Input File to HDFS
+If your input file is not already in HDFS, upload it:
+
+sh
+Copy
+Edit
+hdfs dfs -mkdir -p /user/cloudera/input
+hdfs dfs -put /local/path/to/input.txt /user/cloudera/input/
+Replace /local/path/to/input.txt with the actual file path.
+
+3. Run the Hadoop Job
+Use the following command to execute your JAR file:
+
+sh
+Copy
+Edit
+hadoop jar UniqueStatistics.jar UniqueStatistics /user/cloudera/input /user/cloudera/output
+UniqueStatistics.jar → Your compiled JAR file
+UniqueStatistics → The main class inside the JAR file
+/user/cloudera/input → The HDFS directory containing the input file
+/user/cloudera/output → The directory where output will be stored
+🚨 Ensure the output directory does not already exist (Hadoop does not overwrite existing output directories). If it exists, delete it before running:
+
+sh
+Copy
+Edit
+hdfs dfs -rm -r /user/cloudera/output
+4. Check the Output
+Once the job completes, retrieve and view the results:
+
+sh
+Copy
+Edit
+hdfs dfs -ls /user/cloudera/output
+hdfs dfs -cat /user/cloudera/output/part-r-00000
+This will display the computed statistics from your input file.
+
