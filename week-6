@@ -6,7 +6,7 @@ mv hadoop-3.3.4 hadoop
 
 -------
 
-
-grunt> student = LOAD 'hdfs://localhost:9000/pig_data/student.txt' USING PigStorage(',')
-       AS (id:int, name:chararray, city:chararray);
+grunt> products = LOAD 'hdfs://localhost:9000/pig_data/products.txt'
+         USING PigStorage(',')
+         AS (id:int, name:chararray, category:chararray);
 
