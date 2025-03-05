@@ -5,3 +5,8 @@ tar -xvzf hadoop-3.3.4.tar.gz
 mv hadoop-3.3.4 hadoop
 
 -------
+
+
+grunt> student = LOAD 'hdfs://localhost:9000/pig_data/student.txt' USING PigStorage(',')
+       AS (id:int, name:chararray, city:chararray);
+
