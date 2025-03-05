@@ -1,0 +1,7 @@
+sudo apt update
+sudo apt install openjdk-8-jdk  # Install Java (required for Hadoop)
+wget https://downloads.apache.org/hadoop/common/hadoop-3.3.4/hadoop-3.3.4.tar.gz
+tar -xvzf hadoop-3.3.4.tar.gz
+mv hadoop-3.3.4 hadoop
+
+-------
