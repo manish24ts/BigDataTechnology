@@ -4,7 +4,7 @@ wget https://downloads.apache.org/hadoop/common/hadoop-3.3.4/hadoop-3.3.4.tar.gz
 tar -xvzf hadoop-3.3.4.tar.gz
 mv hadoop-3.3.4 hadoop
 
--------
+----------
 
 grunt> products = LOAD 'hdfs://localhost:9000/pig_data/products.txt'
          USING PigStorage(',')
