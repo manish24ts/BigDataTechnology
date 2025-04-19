@@ -1,0 +1,73 @@
+from pyspark.sql import SparkSession
+from pyspark.ml.classification import LogisticRegression, DecisionTreeClassifier, NaiveBayes
+from pyspark.ml.feature import VectorAssembler
+from pyspark.ml.evaluation import MulticlassClassificationEvaluator
+from pyspark.sql import Row
+
+# Initialize Spark session
+spark = SparkSession.builder.appName("ClassificationExample").getOrCreate()
+
+# Create a mock dataset (example: two features for classification)
+data = [
+    Row(feature1=0.1, feature2=0.2, label=0),
+    Row(feature1=0.2, feature2=0.3, label=0),
+    Row(feature1=0.3, feature2=0.4, label=0),
+    Row(feature1=0.9, feature2=0.8, label=1),
+    Row(feature1=0.8, feature2=0.9, label=1),
+    Row(feature1=0.7, feature2=0.6, label=1),
+    Row(feature1=0.15, feature2=0.25, label=0),
+    Row(feature1=0.85, feature2=0.95, label=1),
+]
+
+# Create DataFrame from the mock dataset
+df = spark.createDataFrame(data)
+
+# Show the original dataset
+df.show()
+
+# Step 1: Assemble features into a single vector column
+assembler = VectorAssembler(inputCols=["feature1", "feature2"], outputCol="features")
+assembled_df = assembler.transform(df)
+
+# Step 2: Split the data into training and testing sets (80% training, 20% testing)
+train_df, test_df = assembled_df.randomSplit([0.8, 0.2], seed=123)
+
+# Step 3: Initialize classifiers
+log_reg = LogisticRegression(featuresCol="features", labelCol="label")
+decision_tree = DecisionTreeClassifier(featuresCol="features", labelCol="label")
+naive_bayes = NaiveBayes(featuresCol="features", labelCol="label")
+
+# Step 4: Train models
+log_reg_model = log_reg.fit(train_df)
+decision_tree_model = decision_tree.fit(train_df)
+naive_bayes_model = naive_bayes.fit(train_df)
+
+# Step 5: Make predictions
+log_reg_predictions = log_reg_model.transform(test_df)
+decision_tree_predictions = decision_tree_model.transform(test_df)
+naive_bayes_predictions = naive_bayes_model.transform(test_df)
+
+# Step 6: Evaluate models using accuracy
+evaluator = MulticlassClassificationEvaluator(labelCol="label", predictionCol="prediction", metricName="accuracy")
+
+log_reg_accuracy = evaluator.evaluate(log_reg_predictions)
+decision_tree_accuracy = evaluator.evaluate(decision_tree_predictions)
+naive_bayes_accuracy = evaluator.evaluate(naive_bayes_predictions)
+
+# Show the evaluation results
+print(f"Logistic Regression Accuracy: {log_reg_accuracy:.4f}")
+print(f"Decision Tree Accuracy: {decision_tree_accuracy:.4f}")
+print(f"Naive Bayes Accuracy: {naive_bayes_accuracy:.4f}")
+
+# Show some predictions
+print("Logistic Regression Predictions:")
+log_reg_predictions.select("features", "label", "prediction").show()
+
+print("Decision Tree Predictions:")
+decision_tree_predictions.select("features", "label", "prediction").show()
+
+print("Naive Bayes Predictions:")
+naive_bayes_predictions.select("features", "label", "prediction").show()
+
+# Stop the Spark session
+spark.stop()
