@@ -11,7 +11,7 @@ data = [
     (1, ["bread", "butter"]),
     (2, ["milk", "bread"]),
     (3, ["milk", "bread", "butter", "jam"]),
-    (4, ["bread", "butter","jam"]),
+    (4, ["bread", "butter"]),
     (5, ["milk", "bread"]),
     (6, ["jam", "bread"]),
 ]
