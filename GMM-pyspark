@@ -9,6 +9,7 @@ spark = SparkSession.builder.appName("GMMExample").getOrCreate()
 # Create a mock dataset
 data = [
     Row(feature1=1.0, feature2=2.0),
+ Row(feature1=1.0, feature2=2.0),
     Row(feature1=1.5, feature2=1.8),
     Row(feature1=5.0, feature2=8.0),
     Row(feature1=8.0, feature2=8.0),
