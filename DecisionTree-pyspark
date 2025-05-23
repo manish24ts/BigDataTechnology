@@ -15,6 +15,10 @@ data = [
     Row(feature1=2.5, feature2=3.5, feature3=4.5, label=1),
     Row(feature1=3.0, feature2=4.0, feature3=5.0, label=0),
     Row(feature1=3.5, feature2=4.5, feature3=5.5, label=1),
+    Row(feature1=1.5, feature2=2.5, feature3=3.5, label=1),
+    Row(feature1=2.0, feature2=3.0, feature3=4.0, label=0),
+    Row(feature1=2.5, feature2=3.5, feature3=4.5, label=1),
+    Row(feature1=3.0, feature2=4.0, feature3=5.0, label=0),
 ]
 
 # Create DataFrame from the mock dataset
