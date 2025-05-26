@@ -9,7 +9,7 @@ spark = SparkSession.builder.appName("LDAExample").getOrCreate()
 
 # Create a mock dataset: Assume these are our documents (texts)
 data = [
-    Row(id=0, text="I love to watch movies"),
+    Row(id=0, text="I love to watch movies and series"),
     Row(id=1, text="I love coding and building software"),
     Row(id=2, text="Movies and coding are fun"),
     Row(id=3, text="Software development is great"),
